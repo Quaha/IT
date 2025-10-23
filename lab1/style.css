@@ -1,0 +1,18 @@
+body {
+    background-color: #FFFAFA;
+    display: flex;
+    justify-content: center;  /* Выравнивание по горизонтали */
+    align-items: center;      /* Выравнивание по вертикали */
+    height: 100vh;            /* Страница на весь экран */
+}
+
+#cards-container {
+    display: flex;
+    gap: 2vh;
+}
+
+#cards-container img {
+    height: 15vh;
+    cursor: pointer;            /* Смена иконки курсора на "кликабельный" */
+    image-rendering: pixelated; /* Отключение сглаживания у изображений */
+}
