@@ -1,18 +1,100 @@
+@font-face {
+    font-family: "Digital Pixel";
+    src: url("assets/DigitalPixelV123-Regular.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --background_color: #fffafa;
+
+    /* Раземер карт 60px : 42px */
+    --card-height: 15vh;
+    --card-width: 10.5vh;
+
+    --border_width: 0.25vh;
+    --border_color: #cccccc;
+    --border_style: dashed; /* Пунктир */
+
+    --slots_gap: 3vh;
+
+    --deck_font: "Digital Pixel", "Courier New";
+    --deck_font_size: 1.5vh;
+    --deck_font_color: #555555;
+
+    --animation_speed: 0.25s;
+    --animation_shift: -5vh;
+}
+
 body {
-    background-color: #FFFAFA;
     display: flex;
+
+    background-color: var(--background_color);
+
     justify-content: center;  /* Выравнивание по горизонтали */
     align-items: center;      /* Выравнивание по вертикали */
-    height: 100vh;            /* Страница на весь экран */
+
+    height: 100vh;
 }
 
-#cards-container {
+#deck {
     display: flex;
-    gap: 2vh;
+
+    cursor: pointer;  /* "Кликабельный" курсор */
+
+    border: var(--border_width) var(--border_style) var(--border_color);  /* Граница */
+    box-sizing: border-box;                                               /* Размер учитывается вместе с обводкой */
+
+    height: var(--card-height);
+    width: var(--card-width);
+
+    margin-right: var(--slots_gap);
 }
 
-#cards-container img {
-    height: 15vh;
-    cursor: pointer;            /* Смена иконки курсора на "кликабельный" */
-    image-rendering: pixelated; /* Отключение сглаживания у изображений */
+#deck_text {
+    font-family: var(--deck_font);
+    font-size: var(--deck_font_size);
+    color: var(--deck_font_color);
+
+    text-align: center;
+}
+
+#slots {
+    display: flex;
+    gap: var(--slots_gap);
+}
+
+.slot {
+    display: flex;
+
+    justify-content: center;  /* Выравнивание по горизонтали */
+    align-items: center;      /* Выравнивание по вертикали */
+
+    border: var(--border_width) var(--border_style) var(--border_color);  /* Граница */
+    box-sizing: border-box;                                               /* Размер учитывается вместе с обводкой */
+
+    height: var(--card-height);
+    width: var(--card-width);
+}
+
+#deck img {
+    height: var(--card-height);
+    width: var(--card-width);
+    
+    image-rendering: pixelated;
+
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
+}
+
+.slot img {
+    height: var(--card-height);
+    width: var(--card-width);
+    
+    image-rendering: pixelated;
+
+    opacity: 0;
+    transform: translateY(var(--animation_shift));
+    transition: all var(--animation_speed);
 }
