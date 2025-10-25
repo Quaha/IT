@@ -33,8 +33,8 @@ function onDeckClick() {
     if (next_free_slot < slots.length) {
         const img = document.createElement("img");
 
+        img.alt = "Card" + card_values[last_unused_value];
         img.src = getCardPath(card_values[last_unused_value++]);
-        img.alt = "Card";
 
         slots[next_free_slot++].appendChild(img);
 
