@@ -1,0 +1,57 @@
+[
+  {
+    "isbn": "978-5-17-168193-7",
+    "authors": ["Лавкрафт Г. Ф."],
+    "edition_code": "LAV-2024-0001",
+    "publisher": "АСТ",
+    "title": "Зов Ктулху",
+    "pages": 480,
+    "cover": "call-of-cthulhu.jpg",
+    "copies": 13,
+    "available": 13
+  },
+  {
+    "isbn": "978-5-4439-4739-6",
+    "authors": ["Виленкин Н. Я.", "Виленкин А. Н.", "Виленкин П. А."],
+    "edition_code": "VIL-2025-0002",
+    "publisher": "МЦНМО",
+    "title": "Комбинаторика",
+    "pages": 400,
+    "cover": "combinatorics.jpg",
+    "copies": 3,
+    "available": 3
+  },
+  {
+    "isbn": "978-5-907473-25-6",
+    "authors": ["Столл С.", "Бруннер Д."],
+    "edition_code": "STO-2023-0003",
+    "publisher": "Портал",
+    "title": "Кошка. Руководство пользователя. Инструкция по эксплуатации, рекомендации",
+    "pages": 224,
+    "cover": "cat-users-guide-operating-instructions-recommendations.jpg",
+    "copies": 1,
+    "available": 1
+  },
+  {
+    "isbn": "978-5-17-106054-1",
+    "authors": ["Лондон Д."],
+    "edition_code": "LON-2017-0004",
+    "publisher": "АСТ",
+    "title": "Мартин Иден",
+    "pages": 448,
+    "cover": "martin-iden.jpg",
+    "copies": 2,
+    "available": 2
+  },
+  {
+    "isbn": "978-985-7171-74-3",
+    "authors": ["Масловская Т."],
+    "edition_code": "MAS-2023-0005",
+    "publisher": "Тетралит",
+    "title": "Конституционное право Республики Беларусь",
+    "pages": 256,
+    "cover": "constitutional-law-of-the-republic-of-belarus.jpg",
+    "copies": 4,
+    "available": 4
+  }
+]

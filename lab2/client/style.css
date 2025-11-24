@@ -1,0 +1,100 @@
+:root {
+    --background-color: #fffbfb;
+
+    --base-page-width: 1280px;
+    --base-page-offset: 20px;
+
+    --logo-size: 144px;
+    --logo-offset: 20px;
+
+    --fonts: "Arial", "Helvetica";
+
+    --menu-color: #ffffff;
+
+    --menu-hyperlink-color: #000000;
+    --menu-highlighted-color: #eeeeee;
+    --menu-active-hyperlink-page-color: #000000;
+
+    --menu-hyperlinks-gap: 8%;
+
+    --menu-offset: 20px;
+}
+
+/* Вся страница */
+body {
+    background-color: var(--background-color);
+    font-family: var(--fonts);
+}
+
+/* Блок контента */
+.page {
+    max-width: var(--base-page-width); /* Ширина блока контента */
+    margin: 0 auto;                    /* Отсутствие отступа сверху у блока контента и его центрирование */
+    padding: var(--base-page-offset);  /* Отступ от границы блока контента до контента */
+}
+
+/* Логотип */
+.logo {
+    height: var(--logo-size);
+    margin-bottom: var(--logo-offset); /* Отступ снизу */
+}
+
+/* Панель меню */
+.menu {
+    /* Корректное отображение при сильном увеличении */
+    white-space: nowrap; /* Запрет переноса строк */
+    overflow-x: auto;    /* Полоса прокрутки */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--menu-hyperlinks-gap); /* Отступы между гиперссылками */
+
+    background: var(--menu-color); /* Цвет заднего фона меню */
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.12);
+
+    margin-bottom: var(--menu-offset);
+}
+
+/* Гиперссылки в меню */
+.menu a {
+    text-decoration: none; /* Отключение подсказки о гиперссылке (___) */
+    color: var(--menu-hyperlink-color); /* Цвет текста гиперссылки */
+    font-size: 25px;
+
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+/* Гиперссылка под курсором в меню*/
+.menu a:hover {
+    background-color: var(--menu-highlighted-color);
+}
+
+/* Гиперссылка активной страница в меню */
+.menu a.active {
+    border-bottom: 3px solid var(--menu-active-hyperlink-page-color);
+    padding-bottom: 4px;
+}
+
+.site-footer {
+    background-color: #f8f8f8;   /* светлый фон */
+    color: #555;                 /* цвет текста */
+    font-size: 0.9rem;           /* чуть меньше основного текста */
+    text-align: center;          /* центрируем текст */
+    padding: 20px;               /* внутренние отступы */
+    margin-top: 30px;            /* отступ сверху от контента */
+    border-top: 1px solid #ddd;  /* лёгкая граница сверху */
+}
+
+.site-footer a {
+    color: #0077cc;              /* цвет ссылок */
+    text-decoration: none;       /* без подчеркивания */
+    margin: 0 5px;               /* небольшой отступ между ссылками */
+}
+
+.site-footer a:hover {
+    text-decoration: underline;  /* подчеркивание при наведении */
+}
