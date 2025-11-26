@@ -9,31 +9,49 @@
 
     --fonts: "Arial", "Helvetica";
 
+    --rounding: 10px;
+    --shadow-style: 0 0 10px rgba(0, 0, 0, 0.3);
+
     /* Настройки панели меню */
     --menu-color: #ffffff;
 
     --menu-out-down-offset: 20px;
     --menu-in-all-offset: 20px;
 
-    --menu-rounding: 12px;
-
     --menu-hyperlink-color: #000000;
     --menu-highlighted-hyperlink-color: #eeeeee;
 
-    --menu-active-hyperlink-page-underline-color: #000000;
-    --menu-active-hyperlink-page-underline-width: 3px;
-    --menu-active-hyperlink-page-underline-style: solid;
+    --menu-active-hyperlink-page-underline-style: 3px solid #000000;
     --menu-active-hyperlink-page-underline-gap: 4px;
 
     --menu-hyperlinks-gap: 8%;
 
-    --menu-hyperlink-rounding: 12px;
     --menu-hyperlink-font-size: 25px;
 
     --menu-hyperlink-block-size: 6px 12px;
 
+    /* Общие настройки блоков */
+    --block-in-vertical-offset: 20px;
+    --block-in-horizontal-offset: 40px;
+
+    /* Настройки текстовых блоков */
+    --text-block-text-color: #000000;
+    --text-block-font-size: 22px;
+
+    --text-block-paragraph-indentation: 2em;
+    --text-block-paragraph-down-offset: 0.5em;
+
+    /* Настройки книжных блоков */
+    --book-block-text-color: #000000;
+    --book-block-font-size: 20px;
+
     /* Настройки нижнего колонтитула */
-    --footer-background-color: #555555
+    --footer-background-color: #f8f8f8;
+    --footer-text-color: #555555;
+    --footer-all-in-offset: 20px;
+    --footer-up-out-offset: 30px;
+
+    --footer-border-style: 1px solid #dddddd;
 }
 
 /* Вся страница */
@@ -42,18 +60,20 @@ body {
     font-family: var(--fonts);
 }
 
-/* Блок контента */
+/* Блок контента (в центре страницы) */
 .page {
     max-width: var(--base-page-width); /* Ширина блока контента */
     margin: 0 auto;                    /* Отсутствие отступа сверху и снизу у блока контента и его центрирование */
     padding: var(--base-page-offset);  /* Отступ от границы блока контента до контента */
+    min-height: 100vh;                 /* Минимальный размер страницы (чтобы footer не отображался высоко)*/
 }
 
 /* Логотип */
 .logo {
-    height: var(--logo-size);
+    height: var(--logo-size);               /* Размер логотипа */
     margin-bottom: var(--logo-down-offset); /* Отступ снизу */
 }
+
 
 /* Панель меню */
 .menu {
@@ -68,8 +88,8 @@ body {
 
     background: var(--menu-color);       /* Цвет заднего фона меню */
     padding: var(--menu-in-all-offset);  /* Внутренние отступы от границы блока меню */
-    border-radius: var(--menu-rounding); /* Величина закругления */
-    box-shadow: 0 0 10px rgba(0,0,0,0.12);
+    border-radius: var(--rounding);      /* Величина закругления */
+    box-shadow: var(--shadow-style);
 
     margin-bottom: var(--menu-out-down-offset); /* Отступ снизу от меню */
 }
@@ -80,8 +100,8 @@ body {
     color: var(--menu-hyperlink-color);
     font-size: var(--menu-hyperlink-font-size);
 
-    padding: var(--menu-hyperlink-block-size);     /* Отступы от края области нажатия до текста */
-    border-radius: var(--menu-hyperlink-rounding); /* Величина закругления */
+    padding: var(--menu-hyperlink-block-size); /* Отступы от края области нажатия до текста */
+    border-radius: var(--rounding);            /* Величина закругления */
 }
 
 /* Гиперссылка под курсором в меню*/
@@ -91,16 +111,76 @@ body {
 
 /* Гиперссылка активной страница в меню */
 .menu a.active {
-    border-bottom: var(--menu-active-hyperlink-page-underline-width) var(--menu-active-hyperlink-page-underline-style) var(--menu-active-hyperlink-page-underline-color);
-    padding-bottom: var(--menu-active-hyperlink-page-underline-gap);
+    border-bottom: var(--menu-active-hyperlink-page-underline-style); /* Стиль подчёркивания */
+    padding-bottom: var(--menu-active-hyperlink-page-underline-gap);  /* Отступ до подчёркивания */
+}
+
+.text-block {
+    background: var(--menu-color);                                               /* Цвет заднего фона меню */
+    padding: var(--block-in-vertical-offset) var(--block-in-horizontal-offset);  /* Внутренние отступы от границы блока меню */
+    border-radius: var(--rounding);                                              /* Величина закругления */
+    box-shadow:  var(--shadow-style);
+
+    margin-bottom: var(--menu-out-down-offset); /* Отступ снизу от меню */
+}
+
+.text-block p {
+    
+    color: var(--text-block-text-color);
+    font-size: var(--text-block-font-size);
+
+    text-indent: var(--text-block-paragraph-indentation);   /* Размер красной строки */
+    margin-bottom: var(--text-block-paragraph-down-offset); /* Отступ после абзаца */
+}
+
+.books-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.book-block {
+    display: flex;
+    gap: 20px;
+
+    background: var(--menu-color); 
+
+    border-radius: var(--rounding);
+    padding: var(--block-in-vertical-offset) var(--block-in-horizontal-offset);  /* Внутренние отступы от границы блока меню */
+    box-shadow: var(--shadow-style);
+    align-items: center;
+
+    min-height: 300px;
+}
+
+.book-block img {
+    width: 170px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: var(--shadow-style);
+}
+
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.book-info p {
+    margin: 1px;
+
+    color: var(--book-block-text-color);
+    font-size: var(--book-block-font-size);
 }
 
 /* Нижний колонтитул */
 .site-footer {
-    background-color: #f8f8f8;   /* светлый фон */
-    color: var(--footer-background-color);                 /* цвет текста */
-    text-align: center;          /* центрируем текст */
-    padding: 20px;               /* внутренние отступы */
-    margin-top: 30px;            /* отступ сверху от контента */
-    border-top: 1px solid #ddd;  /* лёгкая граница сверху */
+    background-color: var(--footer-background-color);
+    color: var(--footer-text-color);
+    border-top: var(--footer-border-style);
+
+    text-align: center; /* Центрирование текста */
+    padding: var(--footer-all-in-offset);
+    margin-top: var(--footer-up-out-offset);
 }
