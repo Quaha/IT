@@ -130,5 +130,16 @@
     "cover": "hero-of-our-time.jpg",
     "copies": 14,
     "available": 14
+  },
+  {
+    "isbn": "978-5-353-003083",
+    "authors": ["Юдковский Э."],
+    "edition_code": "UDK-2018-0013",
+    "publisher": "Самиздат",
+    "title": "Гарри Поттер и методы рационального мышления",
+    "pages": 2247,
+    "cover": "harry-potter-and-the-methods-of-rational-thinking.jpg",
+    "copies": 1,
+    "available": 1
   }
 ]
