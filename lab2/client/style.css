@@ -42,8 +42,17 @@
     --text-block-paragraph-down-offset: 0.5em;
 
     /* Настройки книжных блоков */
+    --book-container-books-in-row: 2;
+    --book-container-between-offset: 30px;
+
     --book-block-text-color: #000000;
     --book-block-font-size: 20px;
+
+    --book-block-objects-gap: 20px;
+
+    --book-block-img-width: 170px;
+    --book-block-text-between-offset: 5px;
+    
 
     /* Настройки нижнего колонтитула */
     --footer-background-color: #f8f8f8;
@@ -135,43 +144,72 @@ body {
 
 .books-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(var(--book-container-books-in-row), 1fr); /* Стиль расположения блоков книг */
+    gap: var(--book-container-between-offset);
 }
 
 .book-block {
     display: flex;
-    gap: 20px;
+    gap: var(--book-block-objects-gap); /* Размер отступа описания книги от картинки */
 
     background: var(--menu-color); 
 
     border-radius: var(--rounding);
     padding: var(--block-in-vertical-offset) var(--block-in-horizontal-offset);  /* Внутренние отступы от границы блока меню */
     box-shadow: var(--shadow-style);
-    align-items: center;
+    align-items: center; /* Отображение в центре блока книги */
 
-    min-height: 300px;
+    min-height: 300px; /* Задание минимального размера книжного блока для равенства высоты всех блоков */
 }
 
+
 .book-block img {
-    width: 170px;
+    width: var(--book-block-img-width);
     height: auto;
-    border-radius: 5px;
+    border-radius: var(--rounding);
     box-shadow: var(--shadow-style);
 }
 
-
+/* Расположение текста в книжном блоке */
 .book-info {
     display: flex;
     flex-direction: column;
-    gap: 5px;
 }
 
+/* Текст в книжном блоке */
 .book-info p {
-    margin: 1px;
-
+    margin: var(--book-block-text-between-offset);
     color: var(--book-block-text-color);
     font-size: var(--book-block-font-size);
+}
+
+.search-block input {
+    width: 100%;
+    padding: 18px 24px;
+    font-size: var(--text-block-font-size);
+    font-family: var(--fonts);
+    color: var(--text-block-text-color);
+
+    background-color: #fdfdfd;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--rounding);
+    
+    outline: none;
+    box-sizing: border-box;
+
+    transition: all 0.25s ease;
+}
+
+/* При фокусе — контур становится чуть темнее и ярче */
+.search-block input:focus {
+    background-color: #ffffff;
+    border-color: #aaaaaa;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+}
+
+/* При активном вводе (опционально ещё мягче) */
+.search-block input:active {
+    border-color: #888888;
 }
 
 /* Нижний колонтитул */
