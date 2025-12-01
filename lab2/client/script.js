@@ -1,7 +1,7 @@
 function shuffle(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
@@ -9,22 +9,23 @@ function shuffle(array) {
 }
 
 function renderBooks(books) {
-    var container = document.getElementById('books-container');
-    if (!container) return;  // Если контейнера нет, ничего не делать
+    let container = document.getElementById('books-container');
+    if (container == null) {
+        return;
+    }
+    container.innerHTML = '';  // Очистка контейнера перед рендером
 
-    container.innerHTML = '';  // Очищаем контейнер перед новым рендерингом
-
-    for (var i = 0; i < books.length; i++) {
-        var book = books[i];
+    for (let i = 0; i < books.length; i++) {
+        let book = books[i];
         
-        var block = document.createElement('div');
+        let block = document.createElement('div');
         block.className = 'book-block';
 
-        var img = document.createElement('img');
+        let img = document.createElement('img');
         img.src = 'assets/covers/' + book.cover;
         img.alt = book.title;
 
-        var info = document.createElement('div');
+        let info = document.createElement('div');
         info.className = 'book-info';
         info.innerHTML = 
             '<p><strong>Название:</strong> ' + book.title + '</p>' +
@@ -42,11 +43,11 @@ function renderBooks(books) {
 }
 
 function loadBooks(callback) {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open('GET', 'books.json', true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            var books = JSON.parse(xhr.responseText);
+            let books = JSON.parse(xhr.responseText);
             callback(books);
         }
     };
@@ -54,56 +55,75 @@ function loadBooks(callback) {
 }
 
 function searchBooks(books, query) {
-    if (!query) return books;  // Если запрос пустой, возвращаем все
+    if (query == "") {
+        return [];
+    }
 
-    query = query.toLowerCase();  // Игнорируем регистр
+    query = query.toLowerCase();
 
-    var results = [];
-    for (var i = 0; i < books.length; i++) {
-        var book = books[i];
-        var matches = false;
+    let results = [];
+    for (let i = 0; i < books.length; i++) {
+        let book = books[i];
+        let is_substr = false;
 
-        // Проверяем все поля на наличие подстроки
-        if (book.title.toLowerCase().indexOf(query) !== -1) matches = true;
-        else if (book.authors.join(', ').toLowerCase().indexOf(query) !== -1) matches = true;
-        else if (book.publisher.toLowerCase().indexOf(query) !== -1) matches = true;
-        else if (book.isbn.toLowerCase().indexOf(query) !== -1) matches = true;
-        else if (book.edition_code.toLowerCase().indexOf(query) !== -1) matches = true;
-        else if (book.pages.toString().indexOf(query) !== -1) matches = true;
-        else if (book.available.toString().indexOf(query) !== -1) matches = true;
-        else if (book.copies.toString().indexOf(query) !== -1) matches = true;
-        // cover не проверяем, так как это имя файла, но если нужно — добавь
+        // Проверка вхождения подстроки
+        if (book.title.toLowerCase().indexOf(query) !== -1) {
+            is_substr = true;
+        }
+        else if (book.authors.join(', ').toLowerCase().indexOf(query) !== -1) {
+            is_substr = true;
+        }
+        else if (book.publisher.toLowerCase().indexOf(query) !== -1) {
+            is_substr = true;
+        }
+        else if (book.isbn.toLowerCase().indexOf(query) !== -1) {
+            is_substr = true;
+        }
+        else if (book.edition_code.toLowerCase().indexOf(query) !== -1) {
+            is_substr = true;
+        }
+        else if (book.pages.toString().indexOf(query) !== -1) {
+            is_substr = true;
+        }
+        else if (book.available.toString().indexOf(query) !== -1) {
+            is_substr = true;
+        }
+        else if (book.copies.toString().indexOf(query) !== -1) {
+            is_substr = true;
+        }
 
-        if (matches) results.push(book);
+        if (is_substr) {
+           results.push(book); 
+        }
     }
     return results;
 }
 
 function main() {
-    var fileName = window.location.pathname.split('/').pop();
+    let file_name = window.location.pathname.split('/').pop();
 
-    if (fileName === 'index.html') {
+    if (file_name === 'index.html') {
         loadBooks(function(books) {
-            var shuffled = shuffle(books);
-            var random8 = shuffled.slice(0, 8);
+            let shuffled = shuffle(books);
+            let random8 = shuffled.slice(0, 8);
             renderBooks(random8);
         });
-    } else if (fileName === 'find.html') {
-        var searchInput = document.getElementById('search-input');
-        if (!searchInput) return;
+    } 
+    else if (file_name === 'find.html') {
+        let search_input = document.getElementById('search-input');
 
         loadBooks(function(books) {
-            renderBooks(books);
-            var debounceTimer;
-            searchInput.oninput = function() {
+            let debounceTimer;
+            search_input.oninput = function() {
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(function() {
-                    var query = searchInput.value;
-                    var filtered = searchBooks(books, query);
+                    let query = search_input.value;
+                    let filtered = searchBooks(books, query);
                     renderBooks(filtered);
                 }, 300);
             };
         });
     }
 }
+
 main();

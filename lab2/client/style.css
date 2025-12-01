@@ -53,6 +53,10 @@
     --book-block-img-width: 170px;
     --book-block-text-between-offset: 5px;
     
+    /* Настройки блока поиска */
+    --search-block-shadow-style: 0 0 10px rgba(0, 0, 0, 0.3);
+    --search-block-offset-style: 15px 20px;
+    --search-block-border-style: 2px solid #e0e0e0;
 
     /* Настройки нижнего колонтитула */
     --footer-background-color: #f8f8f8;
@@ -185,32 +189,25 @@ body {
 
 .search-block input {
     width: 100%;
-    padding: 18px 24px;
+    padding: var(--search-block-offset-style);
     font-size: var(--text-block-font-size);
-    font-family: var(--fonts);
+
     color: var(--text-block-text-color);
 
-    background-color: #fdfdfd;
-    border: 2px solid #e0e0e0;
+    background-color: var(--menu-color);
+    border: var(--search-block-border-style);
     border-radius: var(--rounding);
     
-    outline: none;
-    box-sizing: border-box;
-
-    transition: all 0.25s ease;
+    outline: none; /* Отключение базового внешнего выделения текстового поля при фокусе */
+    box-sizing: border-box; /* Масштабирование относительно области внутри блока, определяемой отступами */
 }
 
-/* При фокусе — контур становится чуть темнее и ярче */
+/* Поле ввода при фокусе */
 .search-block input:focus {
-    background-color: #ffffff;
-    border-color: #aaaaaa;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+    background-color: var(--background-color);
+    box-shadow: var(--shadow-style);
 }
 
-/* При активном вводе (опционально ещё мягче) */
-.search-block input:active {
-    border-color: #888888;
-}
 
 /* Нижний колонтитул */
 .site-footer {
