@@ -1,0 +1,372 @@
+:root {
+    --background-color: #fffbfb;
+    --secondary-background-color: #f9f9f9;
+
+    --base-page-width: 1280px;
+    --base-page-offset: 20px;
+
+    --logo-size: 144px;
+    --logo-down-offset: 20px;
+
+    --fonts: "Arial", "Helvetica";
+
+    --rounding: 10px;
+    --shadow-style: 0 0 10px rgba(0, 0, 0, 0.3);
+
+    /* Настройки панели меню */
+    --menu-color: #ffffff;
+
+    --menu-out-down-offset: 20px;
+    --menu-in-all-offset: 20px;
+
+    --menu-hyperlink-color: #000000;
+    --menu-highlighted-hyperlink-color: #eeeeee;
+
+    --menu-active-hyperlink-page-underline-style: 3px solid #000000;
+    --menu-active-hyperlink-page-underline-gap: 4px;
+
+    --menu-hyperlinks-gap: 8%;
+
+    --menu-hyperlink-font-size: 25px;
+
+    --menu-hyperlink-block-size: 6px 12px;
+
+    /* Общие настройки блоков */
+    --block-in-vertical-offset: 20px;
+    --block-in-horizontal-offset: 40px;
+
+    --block-border-style: 2px solid #e0e0e0;
+
+    /* Настройки текстовых блоков */
+    --text-block-text-color: #000000;
+    --text-block-font-size: 22px;
+
+    --text-block-paragraph-indentation: 2em;
+    --text-block-paragraph-down-offset: 0.5em;
+
+    /* Настройки книжных блоков */
+    --book-container-books-in-row: 2;
+    --book-container-between-offset: 30px;
+
+    --book-block-text-color: #000000;
+    --book-block-font-size: 20px;
+
+    --book-block-objects-gap: 20px;
+
+    --book-block-img-width: 170px;
+    --book-block-text-between-offset: 5px;
+    
+    /* Настройки блока поиска */
+    --search-block-shadow-style: 0 0 10px rgba(0, 0, 0, 0.3);
+    --search-block-offset-style: 15px 20px;
+
+    /* Настройки рейтинговой таблицы */
+    --rating-table-border-style: 1px solid #cccccc;
+    --rating-table-in-all-offset: 20px;
+
+    /* Настройки нижнего колонтитула */
+    --footer-background-color: #f8f8f8;
+    --footer-text-color: #555555;
+    --footer-all-in-offset: 20px;
+    --footer-up-out-offset: 30px;
+
+    --footer-border-style: 1px solid #dddddd;
+}
+
+/* Вся страница */
+body {
+    background-color: var(--background-color);
+    font-family: var(--fonts);
+}
+
+/* Блок контента (в центре страницы) */
+.page {
+    max-width: var(--base-page-width); /* Ширина блока контента */
+    margin: 0 auto;                    /* Отсутствие отступа сверху и снизу у блока контента и его центрирование */
+    padding: var(--base-page-offset);  /* Отступ от границы блока контента до контента */
+    min-height: 100vh;                 /* Минимальный размер страницы (чтобы footer не отображался высоко)*/
+}
+
+/* Логотип */
+.logo {
+    height: var(--logo-size);               /* Размер логотипа */
+    margin-bottom: var(--logo-down-offset); /* Отступ снизу */
+}
+
+
+/* Панель меню */
+.menu {
+    /* Корректное отображение при сильном увеличении */
+    white-space: nowrap; /* Запрет переноса строк */
+    overflow-x: auto;    /* Полоса прокрутки */
+
+    display: flex;
+    justify-content: center; /* Выравнивание элементов внутри меню по горизонтали */
+
+    gap: var(--menu-hyperlinks-gap); /* Отступы между объектами меню (гиперссылками) */
+
+    background: var(--menu-color);       /* Цвет заднего фона меню */
+    padding: var(--menu-in-all-offset);  /* Внутренние отступы от границы блока меню */
+    border-radius: var(--rounding);      /* Величина закругления */
+    box-shadow: var(--shadow-style);
+
+    margin-bottom: var(--menu-out-down-offset); /* Отступ снизу от меню */
+}
+
+/* Гиперссылки в меню */
+.menu a {
+    text-decoration: none; /* Отключение подсказки о гиперссылке (___) */
+    color: var(--menu-hyperlink-color);
+    font-size: var(--menu-hyperlink-font-size);
+
+    padding: var(--menu-hyperlink-block-size); /* Отступы от края области нажатия до текста */
+    border-radius: var(--rounding);            /* Величина закругления */
+}
+
+/* Гиперссылка под курсором в меню*/
+.menu a:hover {
+    background-color: var(--menu-highlighted-hyperlink-color);
+}
+
+/* Гиперссылка активной страница в меню */
+.menu a.active {
+    border-bottom: var(--menu-active-hyperlink-page-underline-style); /* Стиль подчёркивания */
+    padding-bottom: var(--menu-active-hyperlink-page-underline-gap);  /* Отступ до подчёркивания */
+}
+
+.text-block {
+    background: var(--menu-color);                                               /* Цвет заднего фона меню */
+    padding: var(--block-in-vertical-offset) var(--block-in-horizontal-offset);  /* Внутренние отступы от границы блока меню */
+    border-radius: var(--rounding);                                              /* Величина закругления */
+    box-shadow:  var(--shadow-style);
+
+    margin-bottom: var(--menu-out-down-offset); /* Отступ снизу от меню */
+}
+
+.text-block p {
+    
+    color: var(--text-block-text-color);
+    font-size: var(--text-block-font-size);
+
+    margin-bottom: var(--text-block-paragraph-down-offset); /* Отступ после абзаца */
+}
+
+.books-container {
+    display: grid;
+    grid-template-columns: repeat(var(--book-container-books-in-row), 1fr); /* Стиль расположения блоков книг */
+    gap: var(--book-container-between-offset);
+}
+
+.book-block {
+    display: flex;
+    gap: var(--book-block-objects-gap); /* Размер отступа описания книги от картинки */
+
+    background: var(--menu-color); 
+
+    border-radius: var(--rounding);
+    padding: var(--block-in-vertical-offset) var(--block-in-horizontal-offset);  /* Внутренние отступы от границы блока меню */
+    box-shadow: var(--shadow-style);
+    align-items: center; /* Отображение в центре блока книги */
+
+    min-height: 300px; /* Задание минимального размера книжного блока для равенства высоты всех блоков */
+}
+
+
+.book-block img {
+    width: var(--book-block-img-width);
+    height: auto;
+    border-radius: var(--rounding);
+    box-shadow: var(--shadow-style);
+}
+
+/* Расположение текста в книжном блоке */
+.book-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Текст в книжном блоке */
+.book-info p {
+    margin: var(--book-block-text-between-offset);
+    color: var(--book-block-text-color);
+    font-size: var(--book-block-font-size);
+}
+
+.search-block input {
+    width: 100%;
+    padding: var(--search-block-offset-style);
+    font-size: var(--text-block-font-size);
+
+    color: var(--text-block-text-color);
+
+    background-color: var(--menu-color);
+    border: var(--block-border-style);
+    border-radius: var(--rounding);
+    
+    outline: none; /* Отключение базового внешнего выделения текстового поля при фокусе */
+    box-sizing: border-box; /* Масштабирование относительно области внутри блока, определяемой отступами */
+}
+
+/* Поле ввода при фокусе */
+.search-block input:focus {
+    box-shadow: var(--shadow-style);
+}
+
+.empty-search {
+    grid-column: 1 / -1; /* Растяжение текста о ненайденных книгах на всё страницу */
+    text-align: center;
+}
+
+/* Таблица рейтинга */
+.rating-container table {
+    width: 100%;
+    font-size: var(--text-block-font-size);
+}
+
+/* Настройка ячеек таблицы */
+.rating-container th, td {
+    border: var(--rating-table-border-style);
+    padding: var(--rating-table-in-all-offset);
+    text-align: left;
+}
+
+/* Нижний колонтитул */
+.site-footer {
+    background-color: var(--footer-background-color);
+    color: var(--footer-text-color);
+    border-top: var(--footer-border-style);
+
+    text-align: center; /* Центрирование текста */
+    padding: var(--footer-all-in-offset);
+    margin-top: var(--footer-up-out-offset);
+}
+
+/* Секции профиля */
+.section {
+    display: none;
+    background: var(--menu-color);
+    padding: var(--block-in-vertical-offset) var(--block-in-horizontal-offset);
+    border-radius: var(--rounding);
+    box-shadow: var(--shadow-style);
+    margin-bottom: var(--block-in-vertical-offset);
+}
+
+.section .login-form input {
+    width: 100%;
+    padding: var(--search-block-offset-style);
+    font-size: var(--text-block-font-size);
+    color: var(--text-block-text-color);
+    background-color: var(--menu-color);
+    border: var(--block-border-style);
+    border-radius: var(--rounding);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.login-form input:focus {
+    box-shadow: var(--shadow-style);
+}
+
+.login-form button {
+    padding: var(--block-in-vertical-offset) var(--block-in-horizontal-offset);
+    font-size: var(--text-block-font-size);
+    background: var(--menu-color);
+    border: none;
+    border-radius: var(--rounding);
+    box-shadow: var(--shadow-style);
+    cursor: pointer;
+}
+
+.profile-info {
+    background-color: #f9f9f9;   
+    padding: var(--block-in-vertical-offset);
+    border-radius: var(--rounding);
+    box-shadow: var(--shadow-style);
+    margin-bottom: var(--block-in-vertical-offset);
+    text-align: center;
+}
+
+.profile-info h2 {
+    margin-bottom: var(--block-in-vertical-offset);
+    font-size: 1.3em;
+}
+
+.profile-info div {
+    margin-bottom: 8px;
+    font-size: var(--text-block-font-size);
+    color: var(--text-block-text-color);
+}
+
+/* Затемнение кнопки при наведении */
+.section button:hover {
+    background: var(--menu-highlighted-hyperlink-color);
+}
+
+.profile-info button {
+    padding: var(--block-in-vertical-offset) var(--block-in-horizontal-offset);
+    font-size: var(--text-block-font-size);
+    background: var(--menu-color);
+    border: none;
+    border-radius: var(--rounding);
+    box-shadow: var(--shadow-style);
+    cursor: pointer;
+}
+
+/* Формы взятия и возврата книг */
+.take-book-form,
+.ret-book-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: var(--block-in-vertical-offset);
+}
+
+.take-book-form input,
+.ret-book-form input {
+    flex: 1; /* Растяжение по всей ширине */
+    padding: var(--search-block-offset-style);
+    font-size: var(--text-block-font-size);
+    color: var(--text-block-text-color);
+    background-color: var(--menu-color);
+    border: var(--block-border-style);
+    border-radius: var(--rounding);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.take-book-form input:focus,
+.ret-book-form input:focus {
+    box-shadow: var(--shadow-style);
+}
+
+.take-book-form button,
+.ret-book-form button {
+    padding: var(--block-in-vertical-offset) var(--block-in-horizontal-offset);
+    font-size: var(--text-block-font-size);
+    background: var(--menu-color);
+    border: none;
+    border-radius: var(--rounding);
+    box-shadow: var(--shadow-style);
+    cursor: pointer;
+
+    width: 180px;   /* Фиксированная минимальная ширина */
+    flex-shrink: 0; /* Отключение сужения кнопки*/
+}
+
+/* Список взятых книг */
+.books-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: var(--block-in-vertical-offset);
+}
+
+
+/* Взятая книга */
+.book-item {
+    background-color: var(--secondary-background-color);
+    border: var(--block-border-style);
+    border-radius: var(--rounding);
+    padding: var(--base-page-offset);     
+    box-shadow: var(--shadow-style);
+}

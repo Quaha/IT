@@ -1,0 +1,101 @@
+[
+  {
+    "login": "quaha",
+    "name": "Артем Романов",
+    "rating": 29,
+    "taked_books": []
+  },
+  {
+    "login": "egor1337",
+    "name": "Егор Петров",
+    "rating": 0,
+    "taked_books": []
+  },
+  {
+    "login": "mariya04",
+    "name": "Мария Иванова",
+    "rating": 22,
+    "taked_books": [
+      {
+        "edition_code": "VIL-2025-0002",
+        "date": "5.12.2025"
+      }
+    ]
+  },
+  {
+    "login": "sergey_dev",
+    "name": "Сергей Ковалёв",
+    "rating": 34,
+    "taked_books": []
+  },
+  {
+    "login": "nikita2005",
+    "name": "Никита Орлов",
+    "rating": 3,
+    "taked_books": [
+      {
+        "edition_code": "STO-2023-0003",
+        "date": "6.12.2025"
+      }
+    ]
+  },
+  {
+    "login": "lina_cat",
+    "name": "Ангелина Чернова",
+    "rating": -10,
+    "taked_books": []
+  },
+  {
+    "login": "dmitryx",
+    "name": "Дмитрий Корнеев",
+    "rating": 49,
+    "taked_books": [
+      {
+        "edition_code": "LON-2017-0004",
+        "date": "2.12.2025"
+      },
+      {
+        "edition_code": "MAS-2023-0005",
+        "date": "2.12.2025"
+      }
+    ]
+  },
+  {
+    "login": "vlad_prog",
+    "name": "Владислав Нестеров",
+    "rating": 46,
+    "taked_books": []
+  },
+  {
+    "login": "kira_sky",
+    "name": "Кира Светлова",
+    "rating": 0,
+    "taked_books": [
+      {
+        "edition_code": "POL-2019-0006",
+        "date": "4.12.2023"
+      }
+    ]
+  },
+  {
+    "login": "timofey07",
+    "name": "Тимофей Жуков",
+    "rating": 12,
+    "taked_books": [
+      {
+        "edition_code": "HOK-2023-0007",
+        "date": "1.12.2025"
+      },
+      {
+        "edition_code": "LAA-2021-0008",
+        "date": "1.12.2025"
+      }
+    ]
+  },
+  {
+    "login": "sofia_read",
+    "name": "София Лебедева",
+    "rating": 14,
+    "taked_books": []
+  }
+]
