@@ -37,7 +37,7 @@ function renderBooks(books) {
     container.innerHTML = '';  // Очистка контейнера перед рендером
 
     let old_empty_block = document.getElementById('empty-search');
-    if (old_empty_block != null) {
+    if (old_empty_block) {
         old_empty_block.remove();
     }
 
@@ -130,22 +130,21 @@ function calculateUserRating(user) {
 
     for (let i = 0; i < user.taked_books.length; i++) {
         let book = user.taked_books[i];
-        let parts = book.date.split('.'); // ["День","Месяц","Год"]
+        let parts = book.date.split('.'); // ["30","12","2025"]
         let taken_date = new Date(parts[2], parts[1] - 1, parts[0]);
         let diff_time = today - taken_date;
         let diff_days = Math.floor(diff_time / (1000 * 60 * 60 * 24));
 
         if (diff_days <= 20) {
-            rating += diff_days; // +1 за каждый день до 20
+            rating += diff_days;
         }
         else {
-            rating -= diff_days; // -1 за каждый день просрочки
+            rating -= diff_days;
         }
     }
+
     return rating;
 }
-
-
 
 function renderUsers(users) {
     let container = document.getElementById('rating-container');
@@ -193,6 +192,10 @@ function renderUsers(users) {
 }
 
 async function hashPassword(password) {
+
+    // crypto.subtle.digest возвращает Promise (обещание выдать результат в будущем [асинхронно]), поэтому
+    // функция объявлена с async (является асинхронной) и используется await (ожидание результата Promise)
+
     let encoder = new TextEncoder();
     let byte_data = encoder.encode(password);                           // byte_data: Uint8Array([112, 97, 115, 115, 119, 111, 114, 100])
     let hash_buffer = await crypto.subtle.digest("SHA-256", byte_data); // 32 байтовый буффер [43, 255, 12, 14, ...]
@@ -205,7 +208,7 @@ async function hashPassword(password) {
 
 function renderTakenBooks(user) {
     let books_list = document.getElementById('books-list');
-    books_list.innerHTML = ''; // Очищаем контейнер
+    books_list.innerHTML = ''; // Очиcтка контейнера
 
     if (!user.taked_books || user.taked_books.length === 0) {
         let empty_block = document.createElement('div');
@@ -216,7 +219,8 @@ function renderTakenBooks(user) {
         return;
     }
 
-    for (let book of user.taked_books) {
+    for (let i = 0; i < user.taked_books.length; i++) {
+        let book = user.taked_books[i];
         let block = document.createElement('div');
         block.className = 'book-item';
 
@@ -229,130 +233,158 @@ function renderTakenBooks(user) {
     }
 }
 
-async function returnBook(event) {
-    event.preventDefault();
+function returnBook(event) {
+    event.preventDefault(); /* Отмена стандартной обработки event (мгновенной отправки из-за submit)*/
 
-    let code = document.getElementById('ret-book-code-input').value.trim();
-
-    if (!code) return;
-
-    let res = await fetch('/return', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ edition_code: code })
-    });
-
-    let data = await res.json();
-
-    if (!res.ok) {
-        alert(data.error || 'Ошибка возврата книги');
+    let code = document.getElementById('ret-book-code-input').value;
+    if (!code) {
         return;
     }
 
-    alert('Книга успешно возвращена!');
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/return', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
 
-    // Обновляем локальные данные текущего пользователя
-    current_user.rating = data.new_rating;
-    current_user.taked_books = current_user.taked_books.filter(b => b.edition_code !== code);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let data = JSON.parse(xhr.responseText);
+                alert('Книга успешно возвращена!');
 
-    renderTakenBooks(current_user);
+                current_user.rating = data.new_rating;
+                current_user.taked_books = current_user.taked_books.filter(function(b) {
+                    return b.edition_code !== code;
+                });
+
+                renderTakenBooks(current_user);
+                location.reload(); // Обновление страницы для обновления доступных книг
+            }
+            else {
+                let data = JSON.parse(xhr.responseText);
+                alert(data.error || 'Ошибка возврата книги');
+            }
+        }
+    };
+
+    xhr.send(JSON.stringify({ edition_code: code }));
 }
 
-function initProfileModule() {
-    let login_form = document.getElementById('login-form');
-    let logout_btn = document.getElementById('logout-btn');
+function showProfile(user) {
     let profile_section = document.getElementById('profile-section');
     let login_section = document.getElementById('login-section');
     let user_name = document.getElementById('user-name');
     let user_login = document.getElementById('user-login');
     let user_rating = document.getElementById('user-rating');
 
-    function showProfile(user) {
-        login_section.style.display = 'none';
-        profile_section.style.display = 'block';
+    login_section.style.display = 'none';
+    profile_section.style.display = 'block';
 
-        user_name.textContent = user.name;
-        user_login.textContent = user.login;
-        user_rating.textContent = calculateUserRating(user);
+    user_name.textContent = user.name;
+    user_login.textContent = user.login;
+    user_rating.textContent = calculateUserRating(user);
 
-        renderTakenBooks(user);
-    }
+    renderTakenBooks(user);
+}
 
-    function showLogin() {
-        profile_section.style.display = 'none';
-        login_section.style.display = 'block';
-    }
+function showLogin() {
+    let profile_section = document.getElementById('profile-section');
+    let login_section = document.getElementById('login-section');
 
-    async function checkSession() {
-        let response = await fetch('/me');
-        if (response.ok) {
-            let user = await response.json();
-            current_user = user;
-            showProfile(user);
-        } 
-        else {
+    profile_section.style.display = 'none';
+    login_section.style.display = 'block';
+}
+
+function checkSession() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/me', true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let user = JSON.parse(xhr.responseText);
+                current_user = user;
+                showProfile(user);
+            }
+            else {
+                showLogin();
+            }
+        }
+    };
+    xhr.send();
+}
+
+function login(event) {
+    event.preventDefault();
+
+    let login_value = document.getElementById('login').value;
+    let password_value = document.getElementById('password').value;
+
+    hashPassword(password_value).then(function(phash) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/login', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    let user = JSON.parse(xhr.responseText);
+                    current_user = user;
+                    showProfile(user);
+                }
+                else {
+                    alert('Неверный логин или пароль');
+                }
+            }
+        };
+
+        xhr.send(JSON.stringify({ login: login_value, phash: phash }));
+    });
+}
+
+
+function logout() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/logout', true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
             showLogin();
         }
-    }
+    };
+    xhr.send();
+}
 
-    async function login(event) {
-        event.preventDefault();
+function takeBook(event) {
+    event.preventDefault();
+    let edition_code = document.getElementById('take-book-code-input').value
 
-        const loginValue = document.getElementById('login').value;
-        const passwordValue = document.getElementById('password').value;
-        const phash = await hashPassword(passwordValue);
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/take', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
 
-        const response = await fetch('/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ login: loginValue, phash })
-        });
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            let data = JSON.parse(xhr.responseText);
 
-        if (!response.ok) {
-            alert('Неверный логин или пароль');
-            return;
+            if (xhr.status === 200) {
+                alert('Книга успешно взята!');
+                location.reload(); // Обновление страницы для обновления доступных книг
+            } 
+            else {
+                alert(data.error || 'Ошибка при взятии книги');
+            }
         }
+    };
 
-        const user = await response.json();
-        current_user = user;
-        showProfile(user);
-    }
+    xhr.send(JSON.stringify({ edition_code }));
+}
 
-    async function logout() {
-        await fetch('/logout', { method: 'POST' });
-        current_user = null;
-        showLogin();
-    }
+function initProfileModule() {
+    let login_form = document.getElementById('login-form');
+    let logout_btn = document.getElementById('logout-btn');
 
     login_form.addEventListener('submit', login);
     logout_btn.addEventListener('click', logout);
 
-    let take_form = document.getElementById('take-book-form');
-
-    if (take_form) {
-        take_form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const edition_code = document.getElementById('take-book-code-input').value.trim();
-
-            const res = await fetch('/take', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ edition_code })
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                alert(data.error);
-                return;
-            }
-
-            alert("Книга успешно взята!");
-            location.reload();
-        });
-    }
-
+    document.getElementById('take-book-form').addEventListener('submit', takeBook);
     document.getElementById('ret-book-form').addEventListener('submit', returnBook);
 
     checkSession();

@@ -48,12 +48,8 @@
   {
     "login": "dmitryx",
     "name": "Дмитрий Корнеев",
-    "rating": 49,
+    "rating": 56,
     "taked_books": [
-      {
-        "edition_code": "LON-2017-0004",
-        "date": "2.12.2025"
-      },
       {
         "edition_code": "MAS-2023-0005",
         "date": "2.12.2025"

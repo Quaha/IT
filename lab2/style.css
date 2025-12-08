@@ -84,7 +84,7 @@ body {
     max-width: var(--base-page-width); /* Ширина блока контента */
     margin: 0 auto;                    /* Отсутствие отступа сверху и снизу у блока контента и его центрирование */
     padding: var(--base-page-offset);  /* Отступ от границы блока контента до контента */
-    min-height: 100vh;                 /* Минимальный размер страницы (чтобы footer не отображался высоко)*/
+    min-height: 100vh;                 /* Минимальный размер страницы (чтобы footer не отображался высоко, 100% от высоты)*/
 }
 
 /* Логотип */
@@ -213,7 +213,7 @@ body {
 }
 
 .empty-search {
-    grid-column: 1 / -1; /* Растяжение текста о ненайденных книгах на всё страницу */
+    grid-column: 1 / -1; /* Растяжение текста о ненайденных книгах на всё страницу (с 1-ой по (-1) столбце) */
     text-align: center;
 }
 
@@ -243,7 +243,7 @@ body {
 
 /* Секции профиля */
 .section {
-    display: none;
+    display: none; /* Скрытие секций по умолчанию */
     background: var(--menu-color);
     padding: var(--block-in-vertical-offset) var(--block-in-horizontal-offset);
     border-radius: var(--rounding);
@@ -259,8 +259,8 @@ body {
     background-color: var(--menu-color);
     border: var(--block-border-style);
     border-radius: var(--rounding);
-    outline: none;
-    box-sizing: border-box;
+    outline: none;          /* Отключение базового внешнего выделения текстового поля при фокусе */
+    box-sizing: border-box; /* Маштабирование по размеру всего блока */
 }
 
 .login-form input:focus {
@@ -278,7 +278,7 @@ body {
 }
 
 .profile-info {
-    background-color: #f9f9f9;   
+    background-color: var(--secondary-background-color);   
     padding: var(--block-in-vertical-offset);
     border-radius: var(--rounding);
     box-shadow: var(--shadow-style);
@@ -361,8 +361,7 @@ body {
     margin-top: var(--block-in-vertical-offset);
 }
 
-
-/* Взятая книга */
+/* Взятая книга в списке взятых книг */
 .book-item {
     background-color: var(--secondary-background-color);
     border: var(--block-border-style);
